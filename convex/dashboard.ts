@@ -10,7 +10,6 @@ export const getDashboardStats = query({
       .sort((a, b) => b.points - a.points)
       .slice(0, 5);
     
-    // All customers for the bar chart
     const allCustomers = customers.sort((a, b) => b.points - a.points);
     
     return {

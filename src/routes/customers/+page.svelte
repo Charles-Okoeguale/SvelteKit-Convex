@@ -61,7 +61,6 @@
       const worksheet = workbook.Sheets[sheetName];
       const data = XLSX.utils.sheet_to_json(worksheet);
       
-      // Validate and process data
       const validCustomers = [];
       const errors = [];
       
@@ -96,7 +95,6 @@
         return;
       }
       
-      // Upload to Convex
       await convex.mutation(api.customers.bulkAddCustomers, { customers: validCustomers });
       
       uploadMessage = `Successfully uploaded ${validCustomers.length} customers!`;

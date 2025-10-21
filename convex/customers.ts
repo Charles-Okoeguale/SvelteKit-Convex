@@ -29,7 +29,6 @@ export const bulkAddCustomers = mutation({
     const customerIds = [];
     
     for (const customer of args.customers) {
-      // Check for duplicates by name
       const existing = await ctx.db
         .query("customers")
         .filter((q) => q.eq(q.field("name"), customer.name))
@@ -99,7 +98,6 @@ export const redeemReward = mutation({
   },
 });
 
-// For the scheduler
 export const getRandomCustomers = query({
   handler: async (ctx) => {
     const customers = await ctx.db.query("customers").collect();

@@ -8,20 +8,20 @@
   const stats = writable<any>(null);
   
   onMount(() => {
-  const unsubscribe = convex.onUpdate(
-    api.dashboard.getDashboardStats,
-    {}, 
-    (latestData) => {
-      stats.set(latestData);
-    }
-  );
+    const unsubscribe = convex.onUpdate(
+      api.dashboard.getDashboardStats,
+      {}, 
+      (latestData) => {
+        stats.set(latestData);
+      }
+    );
 
-  convex.query(api.dashboard.getDashboardStats, {}).then(data => {
-    stats.set(data);
+    convex.query(api.dashboard.getDashboardStats, {}).then(data => {
+      stats.set(data);
+    });
+
+    return unsubscribe;
   });
-
-  return unsubscribe;
-});
 </script>
 
 <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
