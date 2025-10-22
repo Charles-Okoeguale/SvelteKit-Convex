@@ -72,7 +72,6 @@
         scales: {
           y: {
             beginAtZero: true,
-            grid: { color: '#f3f4f6' },
             ticks: { color: '#6b7280', font: { size: 12 } }
           },
           x: {
@@ -134,123 +133,130 @@
   }
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-  <div class="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
-    <div class="mb-6 sm:mb-8">
-      <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">Analytics Dashboard</h1>
-      <p class="text-sm sm:text-base text-gray-600">Real-time insights into your customer loyalty program</p>
-    </div>
-    
-    {#if $stats}
-      <!-- Stats Cards -->
-      <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-6 sm:mb-8">
-        <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-gray-100 hover:shadow-xl transition-shadow">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-xs sm:text-sm font-medium text-gray-500 mb-1 sm:mb-2">Total Customers</h3>
-              <p class="text-2xl sm:text-3xl font-bold text-gray-900">{$stats.totalCustomers}</p>
-            </div>
-            <div class="p-2 sm:p-3 bg-blue-100 rounded-full">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"></path>
-              </svg>
-            </div>
-          </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-gray-100 hover:shadow-xl transition-shadow">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-xs sm:text-sm font-medium text-gray-500 mb-1 sm:mb-2">Total Points</h3>
-              <p class="text-2xl sm:text-3xl font-bold text-blue-600">{$stats.totalPoints}</p>
-            </div>
-            <div class="p-2 sm:p-3 bg-green-100 rounded-full">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-              </svg>
-            </div>
-          </div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-gray-100 hover:shadow-xl transition-shadow sm:col-span-2 lg:col-span-1">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-xs sm:text-sm font-medium text-gray-500 mb-1 sm:mb-2">Avg Points/Customer</h3>
-              <p class="text-2xl sm:text-3xl font-bold text-green-600">
-                {$stats.totalCustomers > 0 ? Math.round($stats.totalPoints / $stats.totalCustomers) : 0}
-              </p>
-            </div>
-            <div class="p-2 sm:p-3 bg-purple-100 rounded-full">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-              </svg>
-            </div>
-          </div>
-        </div>
+<div class="min-h-screen bg-gray-900 relative overflow-hidden">
+  <div class="absolute inset-0 overflow-hidden">
+    {#each Array(30) as _, i}
+      <div 
+        class="absolute w-1 h-1 bg-gray-400 rounded-full animate-float"
+        style="
+          left: {Math.random() * 100}%; 
+          top: {Math.random() * 100}%; 
+          animation-delay: {Math.random() * 5}s;
+          animation-duration: {3 + Math.random() * 4}s;
+        "
+      ></div>
+    {/each}
+  </div>
+
+  <div class="absolute top-20 left-10 w-2 h-2 bg-blue-400 rounded-full animate-pulse opacity-60"></div>
+  <div class="absolute top-40 right-20 w-3 h-3 bg-purple-400 rounded-full animate-bounce opacity-50" style="animation-delay: 1s;"></div>
+
+  <div class="relative z-10">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
+      <div class="mb-6 sm:mb-8">
+        <h1 class="text-2xl sm:text-4xl font-light text-white mb-1 sm:mb-2" style="text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);">Analytics Dashboard</h1>
+        <p class="text-sm sm:text-base text-gray-300" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">Real-time insights into your customer loyalty program</p>
       </div>
       
-      <!-- Charts Section -->
-      <div class="grid gap-6 sm:gap-8 lg:grid-cols-2">
-        <!-- Bar Chart -->
-        <div class="bg-white rounded-xl shadow-lg p-3 sm:p-6 border border-gray-100">
-          <h2 class="text-base sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Customer Points Distribution</h2>
-          
-          <!-- Desktop/Tablet View -->
-          <div class="hidden min-[401px]:block relative h-64 sm:h-80">
-            <canvas bind:this={chartCanvas} class="w-full h-full"></canvas>
+      {#if $stats}
+        <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-6 sm:mb-8">
+          <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-4 sm:p-6 hover:border-blue-400 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-xs sm:text-sm font-medium text-gray-400 mb-1 sm:mb-2">Total Customers</h3>
+                <p class="text-2xl sm:text-3xl font-light text-white">{$stats.totalCustomers}</p>
+              </div>
+              <div class="p-2 sm:p-3 bg-blue-900 rounded-lg">
+                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+              </div>
+            </div>
           </div>
           
-          <!-- Mobile View (400px and below) -->
-          <div class="block min-[401px]:hidden">
-            <div class="relative h-32 mb-3 opacity-70">
-              <canvas bind:this={thumbnailCanvas} class="w-full h-full"></canvas>
+          <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-4 sm:p-6 hover:border-green-400 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-xs sm:text-sm font-medium text-gray-400 mb-1 sm:mb-2">Total Points</h3>
+                <p class="text-2xl sm:text-3xl font-light text-green-400">{$stats.totalPoints}</p>
+              </div>
+              <div class="p-2 sm:p-3 bg-green-900 rounded-lg">
+                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              </div>
             </div>
-            <button 
-              on:click={openModal}
-              class="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition font-medium flex items-center justify-center gap-1.5"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
-              </svg>
-              View Full Chart
-            </button>
+          </div>
+          
+          <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-4 sm:p-6 hover:border-purple-400 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 sm:col-span-2 lg:col-span-1">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-xs sm:text-sm font-medium text-gray-400 mb-1 sm:mb-2">Avg Points/Customer</h3>
+                <p class="text-2xl sm:text-3xl font-light text-purple-400">
+                  {$stats.totalCustomers > 0 ? Math.round($stats.totalPoints / $stats.totalCustomers) : 0}
+                </p>
+              </div>
+              <div class="p-2 sm:p-3 bg-purple-900 rounded-lg">
+                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+              </div>
+            </div>
           </div>
         </div>
         
-        <!-- Top Customers -->
-        <div class="bg-white rounded-xl shadow-lg p-3 sm:p-6 border border-gray-100">
-          <h2 class="text-base sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Top 5 Customers</h2>
-          <div class="space-y-2 sm:space-y-3">
-            {#each $stats.topCustomers as customer, i}
-              <div class="flex items-center justify-between p-2.5 sm:p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-100">
-                <div class="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
-                  <span class="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full font-bold text-xs sm:text-sm flex-shrink-0">
-                    {i + 1}
-                  </span>
-                  <div class="min-w-0 flex-1">
-                    <p class="font-semibold text-gray-900 text-xs sm:text-base truncate">{customer.name}</p>
-                    {#if customer.email}
-                      <p class="text-xs sm:text-sm text-gray-600 truncate">{customer.email}</p>
-                    {/if}
+        <div class="grid gap-6 sm:gap-8 lg:grid-cols-2">
+          <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-3 sm:p-6">
+            <h2 class="text-base sm:text-xl font-light text-white mb-3 sm:mb-4">Customer Points Distribution</h2>
+            <div class="hidden min-[401px]:block relative h-64 sm:h-80">
+              <canvas bind:this={chartCanvas} class="w-full h-full"></canvas>
+            </div>
+            
+  
+            <div class="block min-[401px]:hidden">
+              <div class="relative h-32 mb-3 opacity-70">
+                <canvas bind:this={thumbnailCanvas} class="w-full h-full"></canvas>
+              </div>
+              <button 
+                on:click={openModal}
+                class="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition font-medium flex items-center justify-center gap-1.5"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                </svg>
+                View Full Chart
+              </button>
+            </div>
+          </div>
+          
+          <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-3 sm:p-6">
+            <h2 class="text-base sm:text-xl font-light text-white mb-3 sm:mb-4">Top 5 Customers</h2>
+            <div class="space-y-2 sm:space-y-3">
+              {#each $stats.topCustomers as customer, i}
+                <div class="flex items-center justify-between p-2.5 sm:p-4 bg-gray-700 rounded-lg border border-gray-600">
+                  <div class="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
+                    <span class="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full font-bold text-xs sm:text-sm flex-shrink-0">
+                      {i + 1}
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p class="font-medium text-white text-xs sm:text-base truncate">{customer.name}</p>
+                      {#if customer.email}
+                        <p class="text-xs sm:text-sm text-gray-400 truncate">{customer.email}</p>
+                      {/if}
+                    </div>
+                  </div>
+                  <div class="text-right flex-shrink-0 ml-2">
+                    <span class="text-lg sm:text-2xl font-light text-blue-400">{customer.points}</span>
+                    <p class="text-[10px] sm:text-xs text-gray-500">points</p>
                   </div>
                 </div>
-                <div class="text-right flex-shrink-0 ml-2">
-                  <span class="text-lg sm:text-2xl font-bold text-blue-600">{customer.points}</span>
-                  <p class="text-[10px] sm:text-xs text-gray-500">points</p>
-                </div>
-              </div>
-            {/each}
+              {/each}
+            </div>
           </div>
         </div>
-      </div>
-    {:else}
-      <div class="flex items-center justify-center h-64">
-        <div class="text-center">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p class="text-gray-500">Loading dashboard...</p>
+      {:else}
+        <div class="flex items-center justify-center h-64">
+          <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
+            <p class="text-gray-300">Loading dashboard...</p>
+          </div>
         </div>
-      </div>
-    {/if}
+      {/if}
+    </div>
   </div>
 </div>
 
@@ -261,6 +267,21 @@
 />
 
 <style>
+  @keyframes float {
+    0%, 100% { 
+      transform: translateY(0px) translateX(0px); 
+      opacity: 0.3;
+    }
+    50% { 
+      transform: translateY(-20px) translateX(10px); 
+      opacity: 0.8;
+    }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
   @media (max-width: 400px) {
     :global(body) {
       overflow-x: hidden;

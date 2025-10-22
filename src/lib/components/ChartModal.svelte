@@ -80,10 +80,10 @@
 
 {#if showModal}
   <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-    <div class="relative w-full h-full bg-white p-6 flex flex-col">
+    <div class="relative w-full h-full bg-gray-900 p-6 flex flex-col">
       <button 
         on:click={handleClose}
-        class="absolute top-4 right-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition z-10"
+        class="absolute top-4 right-4 p-2 bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 hover:text-white transition z-10"
         aria-label="Close chart"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
