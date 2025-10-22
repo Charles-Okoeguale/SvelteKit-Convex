@@ -5,6 +5,8 @@
   import { api } from '../../../convex/_generated/api';
   import Chart from 'chart.js/auto';
   import ChartModal from '$lib/components/ChartModal.svelte';
+    import CustomerRow from '$lib/components/CustomerRow.svelte';
+  import StatsCard from '$lib/components/StatsCard.svelte';
   
   const convex = getContext<ConvexClient>('convex');
   const stats = writable<any>(null);
@@ -152,51 +154,27 @@
   <div class="absolute top-40 right-20 w-3 h-3 bg-purple-400 rounded-full animate-bounce opacity-50" style="animation-delay: 1s;"></div>
 
   <div class="relative z-10">
-    <div class="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
-      <div class="mb-6 sm:mb-8">
-        <h1 class="text-2xl sm:text-4xl font-light text-white mb-1 sm:mb-2" style="text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);">Analytics Dashboard</h1>
-        <p class="text-sm sm:text-base text-gray-300" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">Real-time insights into your customer loyalty program</p>
-      </div>
-      
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8">      
       {#if $stats}
         <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-6 sm:mb-8">
-          <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-4 sm:p-6 hover:border-blue-400 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-xs sm:text-sm font-medium text-gray-400 mb-1 sm:mb-2">Total Customers</h3>
-                <p class="text-2xl sm:text-3xl font-light text-white">{$stats.totalCustomers}</p>
-              </div>
-              <div class="p-2 sm:p-3 bg-blue-900 rounded-lg">
-                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
-              </div>
-            </div>
-          </div>
+          <StatsCard 
+            label="Total Customers" 
+            value={$stats.totalCustomers} 
+            color="blue"
+          />
           
-          <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-4 sm:p-6 hover:border-green-400 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-xs sm:text-sm font-medium text-gray-400 mb-1 sm:mb-2">Total Points</h3>
-                <p class="text-2xl sm:text-3xl font-light text-green-400">{$stats.totalPoints}</p>
-              </div>
-              <div class="p-2 sm:p-3 bg-green-900 rounded-lg">
-                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              </div>
-            </div>
-          </div>
+          <StatsCard 
+            label="Total Points" 
+            value={$stats.totalPoints} 
+            color="green"
+            animated={true}
+          />
           
-          <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-4 sm:p-6 hover:border-purple-400 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 sm:col-span-2 lg:col-span-1">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-xs sm:text-sm font-medium text-gray-400 mb-1 sm:mb-2">Avg Points/Customer</h3>
-                <p class="text-2xl sm:text-3xl font-light text-purple-400">
-                  {$stats.totalCustomers > 0 ? Math.round($stats.totalPoints / $stats.totalCustomers) : 0}
-                </p>
-              </div>
-              <div class="p-2 sm:p-3 bg-purple-900 rounded-lg">
-                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
-              </div>
-            </div>
-          </div>
+          <StatsCard 
+            label="Avg Points/Customer" 
+            value={$stats.totalCustomers > 0 ? Math.round($stats.totalPoints / $stats.totalCustomers) : 0}
+            color="purple"
+          />
         </div>
         
         <div class="grid gap-6 sm:gap-8 lg:grid-cols-2">
@@ -227,23 +205,7 @@
             <h2 class="text-base sm:text-xl font-light text-white mb-3 sm:mb-4">Top 5 Customers</h2>
             <div class="space-y-2 sm:space-y-3">
               {#each $stats.topCustomers as customer, i}
-                <div class="flex items-center justify-between p-2.5 sm:p-4 bg-gray-700 rounded-lg border border-gray-600">
-                  <div class="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
-                    <span class="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full font-bold text-xs sm:text-sm flex-shrink-0">
-                      {i + 1}
-                    </span>
-                    <div class="min-w-0 flex-1">
-                      <p class="font-medium text-white text-xs sm:text-base truncate">{customer.name}</p>
-                      {#if customer.email}
-                        <p class="text-xs sm:text-sm text-gray-400 truncate">{customer.email}</p>
-                      {/if}
-                    </div>
-                  </div>
-                  <div class="text-right flex-shrink-0 ml-2">
-                    <span class="text-lg sm:text-2xl font-light text-blue-400">{customer.points}</span>
-                    <p class="text-[10px] sm:text-xs text-gray-500">points</p>
-                  </div>
-                </div>
+                <CustomerRow {customer} rank={i + 1} />
               {/each}
             </div>
           </div>
