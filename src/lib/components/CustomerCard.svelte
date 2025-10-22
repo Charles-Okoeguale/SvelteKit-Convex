@@ -32,15 +32,15 @@
   <div class="flex gap-3">
     <button 
       on:click={() => onAddPoints(customer._id)}
-      class="group flex-1 px-4 py-2 text-gray-300 text-sm rounded-lg hover:text-white transition-all duration-200 font-medium shadow-sm"
-      style="background: linear-gradient(to right, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));"
+      class="group flex-1 px-4 py-2 text-green-300 text-sm rounded-lg hover:text-green-100 transition-all duration-200 font-medium shadow-sm"
+      style="background: linear-gradient(to right, rgba(34, 197, 94, 0.25), rgba(34, 197, 94, 0.15));"
     >
       +10
     </button>
     <button 
       on:click={() => onDeductPoints(customer._id)}
-      class="group flex-1 px-4 py-2 text-gray-300 text-sm rounded-lg hover:text-white transition-all duration-200 font-medium shadow-sm"
-      style="background: linear-gradient(to right, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));"
+      class="group flex-1 px-4 py-2 text-red-300 text-sm rounded-lg hover:text-red-100 transition-all duration-200 font-medium shadow-sm"
+      style="background: linear-gradient(to right, rgba(239, 68, 68, 0.25), rgba(239, 68, 68, 0.15));"
     >
       -10
     </button>
